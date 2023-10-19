@@ -14,10 +14,12 @@ jobs:
     - name: Checkout GitHub repository
       uses: actions/checkout@v2
       with:
-        fetch-depth: 0 
+        fetch-depth: 0
 
     - name: Push to Azure DevOps
       run: |
+        git config user.email "Luiz-AVcruz@baracubaba.com.br"
+        git config user.name "Luiz Augusto Vitorino Cruz"
         git remote add azure https://Baracubaba:${{ secrets.AZURE_DEVOPS_PAT }}@dev.azure.com/Baracubaba/Baracusite/_git/Baracusite
-        git push azure HEAD:refs/heads/main --force 
+        git push azure HEAD:refs/heads/main --force
         git push azure --tags
