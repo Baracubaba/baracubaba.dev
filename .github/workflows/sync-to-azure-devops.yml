@@ -1,0 +1,23 @@
+name: Sync to Azure DevOps
+
+on:
+  push:
+    branches:
+      - '**'
+    tags:
+      - '**'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout GitHub repository
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0 
+
+    - name: Push to Azure DevOps
+      run: |
+        git remote add azure https://Baracubaba:${{ secrets.AZURE_DEVOPS_PAT }}@dev.azure.com/Baracubaba/Baracusite/_git/Baracusite
+        git push azure HEAD:refs/heads/main --force 
+        git push azure --tags
